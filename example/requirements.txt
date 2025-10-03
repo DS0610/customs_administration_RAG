@@ -1,0 +1,5 @@
+langchain
+langchain-core
+langchain-community
+ollama # LLama API 사용하기 위한 라이브러리
+tiktoken # 프롬프트 길이 관리를 위한 라이브러리

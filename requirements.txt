@@ -1,5 +1,27 @@
-langchain
-langchain-core
-langchain-community
-ollama # LLama API 사용하기 위한 라이브러리
-tiktoken # 프롬프트 길이 관리를 위한 라이브러리
+# 임베딩 모델 라이브러리
+sentence-transformers
+torch # sentence-transformers가 내부적으로 사용합니다.
+
+# PDF 파싱 라이브러리
+pypdf
+pdfplumber
+# PyMYPDF
+
+# 임베딩 모델 라이브러리
+sentence-transformers
+torch # sentence-transformers가 내부적으로 사용합니다.
+
+# Ollama 클라이언트
+ollama
+
+# Elasticsearch 클라이언트
+elasticsearch
+
+# (만약 API 서버로 만든다면)
+# fastapi
+# uvicorn
+
+# Redis 저장 시 필요한 라이브러리
+redis
+requests
+numpy

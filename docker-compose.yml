@@ -1,0 +1,75 @@
+services:
+  # 1. Elasticsearch
+  elasticsearch:
+    image: elasticsearch:8.10.4
+    container_name: my-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+
+  # 2. Kibana
+  kibana:
+    image: kibana:8.10.4
+    container_name: my-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://my-elasticsearch:9200
+    networks:
+      - my-app-network
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+
+  # 3. Redis
+  redis:
+    image: redis/redis-stack:latest # 벡터 검색은 Redis의 RediSearch 모듈이 필요
+    container_name: my-redis
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+
+  # 4. Ollama (MacBook용, GPU 설정 불필요)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: my-ollama
+    ports:
+      - "11434:11434"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+    command: serve 
+
+  # 5. RedisInsight (공식 GUI) -> mac인 사람은 redisinsight app을 다운받아서 사용하세요
+  # redis-ui:
+  #   image: redis/redisinsight:latest
+  #   container_name: my-redis-ui
+  #   ports:
+  #     - "8001:8001"   # 웹 UI 접속 포트
+  #   networks:
+  #     - my-app-network
+  #   restart: unless-stopped
+
+
+
+volumes:
+  es-data:
+  redis-data:
+  ollama-data:
+  redis-ui-data:
+
+networks:
+  my-app-network:
+    driver: bridge

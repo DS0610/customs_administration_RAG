@@ -6,6 +6,10 @@ torch # sentence-transformers가 내부적으로 사용합니다.
 pypdf
 pdfplumber
 # PyMYPDF
+beautifulsoup4
+tabula-py
+pyarrow
+fastparquet
 
 # 임베딩 모델 라이브러리
 sentence-transformers
@@ -25,3 +29,4 @@ elasticsearch
 redis
 requests
 numpy
+pandas
